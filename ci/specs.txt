@@ -1,0 +1,25 @@
+# One spec per line: what E3SM-Unified, compass and polaris ask mache to build,
+# with their pins substituted.  The concretize job runs `spack spec` on each.
+# E3SM-Unified
+esmf@8.9.1+mpi+netcdf~pnetcdf~external-parallelio
+moab@5.6.0+eigen+fortran+hdf5+mpi+netcdf+pnetcdf+zoltan+tempest
+nco@5.3.9+openmp
+tempestremap@2.2.0
+tempestextremes@2.4.2+mpi
+hdf5@1.14.6+cxx+fortran+hl+mpi+shared
+netcdf-c@4.10.0+mpi~parallel-netcdf
+netcdf-fortran@4.6.2
+parallel-netcdf@1.14.1+cxx+fortran
+# compass
+cmake@3.27.0:
+e3sm-scorpio@1.8.2+mpi~timing~internal-timing~tools+malloc
+trilinos-for-albany@compass-2026-02-06
+albany@compass-2026-03-21+mpas~py+unit_tests
+moab@5.6.0+mpi+hdf5+netcdf+pnetcdf+metis+parmetis+tempest
+# polaris
+metis@5.1.0+int64+real64~shared
+parmetis@4.0.3+int64~shared
+e3sm-scorpio@2.0.3+mpi~timing~internal-timing~tools+malloc
+netcdf-c@4.10.1+mpi~parallel-netcdf
+netcdf-fortran@4.6.3
+parallel-netcdf@1.15.0+cxx+fortran

@@ -1,0 +1,35 @@
+name: Set up Spack
+description: Clone Spack and spack-packages at the given tags, register this checkout first
+inputs:
+  spack:
+    description: spack/spack tag
+    required: true
+  builtin:
+    description: spack/spack-packages tag
+    required: true
+runs:
+  using: composite
+  steps:
+  - name: Clone Spack and spack-packages
+    shell: bash
+    run: |
+      git clone --depth 1 --branch "${{ inputs.spack }}" https://github.com/spack/spack.git spack
+      git clone --depth 1 --branch "${{ inputs.builtin }}" https://github.com/spack/spack-packages.git \
+          spack/var/spack/package_repos/builtin
+      cat > spack/etc/spack/repos.yaml <<YAML
+      repos:
+        e3sm: ${{ github.workspace }}/repos/spack_repo/e3sm
+        builtin: ${{ github.workspace }}/spack/var/spack/package_repos/builtin/repos/spack_repo/builtin
+      YAML
+  - name: Cache bootstrap store
+    uses: actions/cache@v4
+    with:
+      path: ~/.spack/bootstrap
+      key: bootstrap-${{ inputs.spack }}-${{ runner.os }}
+  - name: Register compilers and bootstrap
+    shell: bash
+    run: |
+      source spack/share/spack/setup-env.sh
+      spack repo list
+      spack compiler find
+      spack spec zlib-ng > /dev/null

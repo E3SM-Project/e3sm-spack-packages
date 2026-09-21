@@ -1,0 +1,2 @@
+# same ruff as spack/spack-packages pins for its style checks
+ruff==0.15.11

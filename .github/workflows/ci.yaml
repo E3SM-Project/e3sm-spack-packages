@@ -1,0 +1,102 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  schedule:
+  - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+env:
+  E3SM_REPO: ${{ github.workspace }}/repos/spack_repo/e3sm
+
+jobs:
+  versions:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.read.outputs.matrix }}
+    steps:
+    - uses: actions/checkout@v4
+    - id: read
+      run: |
+        matrix=$(python3 -c '
+        import json, yaml
+        with open("ci/versions.yaml") as f:
+            print(json.dumps({"include": yaml.safe_load(f)["versions"]}))
+        ')
+        echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
+
+  style:
+    needs: versions
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ fromJson(needs.versions.outputs.matrix) }}
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+    - name: ruff
+      run: |
+        pip install -r ci/requirements.txt
+        ruff format --diff repos
+        ruff check --no-fix repos
+    - uses: ./.github/actions/setup-spack
+      with:
+        spack: ${{ matrix.spack }}
+        builtin: ${{ matrix.builtin }}
+    - name: spack audit packages
+      run: |
+        source spack/share/spack/setup-env.sh
+        spack audit packages $(ls repos/spack_repo/e3sm/packages | tr _ -)
+
+  concretize:
+    needs: versions
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.versions.outputs.matrix) }}
+    steps:
+    - uses: actions/checkout@v4
+    - uses: ./.github/actions/setup-spack
+      with:
+        spack: ${{ matrix.spack }}
+        builtin: ${{ matrix.builtin }}
+    - name: Concretize every package
+      run: |
+        source spack/share/spack/setup-env.sh
+        for dir in repos/spack_repo/e3sm/packages/*/; do
+          pkg=$(basename "$dir" | tr _ -)
+          echo "::group::e3sm.$pkg"
+          spack spec -N "e3sm.$pkg" | head -1
+          echo "::endgroup::"
+        done
+    - name: Concretize downstream specs
+      run: |
+        source spack/share/spack/setup-env.sh
+        grep -v '^#' ci/specs.txt | grep -v '^\s*$' | while read -r spec; do
+          echo "::group::$spec"
+          spack spec -N "$spec" | head -1
+          echo "::endgroup::"
+        done
+
+  install:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    needs: versions
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.versions.outputs.matrix) }}
+    steps:
+    - uses: actions/checkout@v4
+    - uses: ./.github/actions/setup-spack
+      with:
+        spack: ${{ matrix.spack }}
+        builtin: ${{ matrix.builtin }}
+    - name: Install cheap packages
+      run: |
+        source spack/share/spack/setup-env.sh
+        sudo apt-get update && sudo apt-get install -y libopenmpi-dev openmpi-bin
+        spack external find --not-buildable openmpi cmake gmake perl pkgconf
+        spack install -j 4 parallel-netcdf tempestremap tempestextremes e3sm-scorpio

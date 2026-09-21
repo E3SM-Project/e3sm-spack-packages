@@ -1,0 +1,5 @@
+# (spack, builtin) release pairs that the concretize job tests against.  The
+# oldest builtin release here names the era for the next tag (vYYYY.MM.N).
+versions:
+- spack: v1.2.2
+  builtin: v2026.06.0
