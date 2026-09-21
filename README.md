@@ -28,13 +28,14 @@ E3SM delta. Each is deleted here once the pinned `builtin` release provides it.
 | `trilinos-for-albany` | E3SM-only: Trilinos configured for Albany | not upstream |
 | `e3sm-scorpio` | versions 1.8.2–2.0.3; lowercase Fortran modules with `cce` | PR pending |
 | `esmf` | drops the run-time `python`/`py-pyyaml` dependencies (ESMX), which would put a Spack python in the view; NetCDF `split` mode on Perlmutter, Chicoma and Frontier; `libstdc++` link path with oneAPI | E3SM-specific |
+| `moab` | constrains `eigen` to 3.x; MOAB 5.6.0 does not build against Eigen 5 (C++14) | PR pending |
 | `netcdf-c` | version 4.10.1 | PR pending |
 | `netcdf-fortran` | version 4.6.3 | PR pending |
 | `parallel-netcdf` | version 1.15.0 | PR pending |
 | `tempestextremes` | versions 2.4, 2.4.1, 2.4.2 | PR pending |
 | `tempestremap` | grid-element tolerance patch for high-resolution meshes in mbtempest; missing `c` build dependency | patch E3SM-specific; `c` dependency PR pending |
 
-Not carried over from the retired `E3SM-Project/spack` fork: `moab`, `nco`,
+Not carried over from the retired `E3SM-Project/spack` fork: `nco`,
 `netcdf-fortran` 4.6.2, `hdf5`, `visit` and the `trilinos` cmake bump are
 upstream at the versions E3SM uses; the `boost` and `rhash` patches were for
 Intel classic compilers, which mache no longer supports; `superlu` shared
