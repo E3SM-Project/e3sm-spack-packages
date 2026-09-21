@@ -26,14 +26,14 @@ E3SM delta. Each is deleted here once the pinned `builtin` release provides it.
 |---------|----------------|----------|
 | `albany` | E3SM-only: Albany land-ice model with compass tags and variants | not upstream |
 | `trilinos-for-albany` | E3SM-only: Trilinos configured for Albany | not upstream |
-| `e3sm-scorpio` | versions 1.8.2–2.0.3; lowercase Fortran modules with `cce` | PR pending |
+| `e3sm-scorpio` | versions 1.8.2–2.0.3; lowercase Fortran modules with `cce` | [spack-packages#6571](https://github.com/spack/spack-packages/pull/6571) |
 | `esmf` | drops the run-time `python`/`py-pyyaml` dependencies (ESMX), which would put a Spack python in the view; NetCDF `split` mode on Perlmutter, Chicoma and Frontier; `libstdc++` link path with oneAPI | E3SM-specific |
 | `moab` | constrains `eigen` to 3.x; MOAB 5.6.0 does not build against Eigen 5 (C++14) | [spack-packages#6566](https://github.com/spack/spack-packages/pull/6566) |
-| `netcdf-c` | version 4.10.1 | PR pending |
-| `netcdf-fortran` | version 4.6.3 | PR pending |
-| `parallel-netcdf` | version 1.15.0 | PR pending |
-| `tempestextremes` | versions 2.4, 2.4.1, 2.4.2 | PR pending |
-| `tempestremap` | grid-element tolerance patch for high-resolution meshes in mbtempest; missing `c` build dependency | patch E3SM-specific; `c` dependency PR pending |
+| `netcdf-c` | version 4.10.1 | [spack-packages#6569](https://github.com/spack/spack-packages/pull/6569) |
+| `netcdf-fortran` | version 4.6.3 | [spack-packages#6568](https://github.com/spack/spack-packages/pull/6568) |
+| `parallel-netcdf` | version 1.15.0 | [spack-packages#6570](https://github.com/spack/spack-packages/pull/6570) |
+| `tempestextremes` | versions 2.4, 2.4.1, 2.4.2 | [spack-packages#6567](https://github.com/spack/spack-packages/pull/6567) |
+| `tempestremap` | grid-element tolerance patch for high-resolution meshes in mbtempest; missing `c` build dependency | patch E3SM-specific; `c` dependency already on `develop` |
 
 Not carried over from the retired `E3SM-Project/spack` fork: `nco`,
 `netcdf-fortran` 4.6.2, `hdf5`, `visit` and the `trilinos` cmake bump are
