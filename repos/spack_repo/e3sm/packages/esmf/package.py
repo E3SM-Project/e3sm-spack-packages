@@ -4,7 +4,6 @@
 
 import os
 import re
-import subprocess
 
 from spack_repo.builtin.packages.esmf.package import Esmf as BuiltinEsmf
 from spack_repo.builtin.packages.esmf.package import MakefileBuilder as BuiltinMakefileBuilder
@@ -42,13 +41,13 @@ def _oneapi_gcc_lib64(cxx):
             lib64 = os.path.join(match.group(1), "lib64")
             if os.path.exists(lib64):
                 return lib64
+    # Spack's Executable rather than subprocess.run(capture_output=...):
+    # Spack runs under the login shell's python, which may be 3.6
     try:
-        result = subprocess.run(
-            [cxx, "--print-file-name=libstdc++.so"], capture_output=True, text=True, check=True
-        )
-    except (OSError, subprocess.CalledProcessError):
+        output = Executable(cxx)("--print-file-name=libstdc++.so", output=str, error=str)
+    except (OSError, ProcessError):
         return None
-    libstdcxx = os.path.realpath(result.stdout.strip())
+    libstdcxx = os.path.realpath(output.strip())
     if os.path.isabs(libstdcxx):
         return os.path.dirname(libstdcxx)
     return None
