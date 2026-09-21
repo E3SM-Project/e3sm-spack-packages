@@ -28,7 +28,7 @@ E3SM delta. Each is deleted here once the pinned `builtin` release provides it.
 | `trilinos-for-albany` | E3SM-only: Trilinos configured for Albany | not upstream |
 | `e3sm-scorpio` | versions 1.8.2–2.0.3; lowercase Fortran modules with `cce` | PR pending |
 | `esmf` | drops the run-time `python`/`py-pyyaml` dependencies (ESMX), which would put a Spack python in the view; NetCDF `split` mode on Perlmutter, Chicoma and Frontier; `libstdc++` link path with oneAPI | E3SM-specific |
-| `moab` | constrains `eigen` to 3.x; MOAB 5.6.0 does not build against Eigen 5 (C++14) | PR pending |
+| `moab` | constrains `eigen` to 3.x; MOAB 5.6.0 does not build against Eigen 5 (C++14) | [spack-packages#6566](https://github.com/spack/spack-packages/pull/6566) |
 | `netcdf-c` | version 4.10.1 | PR pending |
 | `netcdf-fortran` | version 4.6.3 | PR pending |
 | `parallel-netcdf` | version 1.15.0 | PR pending |
