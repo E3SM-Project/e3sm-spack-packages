@@ -3,7 +3,7 @@
 # E3SM-Unified
 esmf@8.9.1+mpi+netcdf~pnetcdf~external-parallelio
 moab@5.6.0+eigen+fortran+hdf5+mpi+netcdf+pnetcdf+zoltan+tempest
-nco@5.4.0+openmp
+nco@5.4.1+openmp
 tempestremap@2.2.0
 tempestextremes@2.4.2+mpi
 hdf5@1.14.6+cxx+fortran+hl+mpi+shared
