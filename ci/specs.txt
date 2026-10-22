@@ -17,8 +17,8 @@ trilinos-for-albany@compass-2026-02-06
 albany@compass-2026-03-21+mpas~py+unit_tests
 moab@5.6.0+mpi+hdf5+netcdf+pnetcdf+metis+parmetis+tempest
 # polaris
-metis@5.1.0+int64+real64~shared
-parmetis@4.0.3+int64~shared
+metis@5.1.0+int64+real64~shared+pic
+parmetis@4.0.3+int64~shared+pic
 e3sm-scorpio@2.0.3+mpi~timing~internal-timing~tools+malloc
 netcdf-c@4.10.1+mpi~parallel-netcdf
 netcdf-fortran@4.6.3
