@@ -28,11 +28,13 @@ E3SM delta. Each is deleted here once the pinned `builtin` release provides it.
 | `trilinos-for-albany` | E3SM-only: Trilinos configured for Albany | not upstream |
 | `e3sm-scorpio` | versions 1.8.2–2.0.3; lowercase Fortran modules with `cce` | [spack-packages#6571](https://github.com/spack/spack-packages/pull/6571) |
 | `esmf` | drops the run-time `python`/`py-pyyaml` dependencies (ESMX), which would put a Spack python in the view; NetCDF `split` mode on Perlmutter, Chicoma and Frontier; `libstdc++` link path with oneAPI | E3SM-specific |
+| `metis` | `pic` variant, so the static library can be linked into Trilinos's shared libraries in Polaris's Albany environments | not yet submitted |
 | `moab` | constrains `eigen` to 3.x; MOAB 5.6.0 does not build against Eigen 5 (C++14) | [spack-packages#6566](https://github.com/spack/spack-packages/pull/6566), merged 2026-09-21; drop with the first `builtin` release after v2026.06.0 |
 | `nco` | versions 5.4.0, 5.4.1 | [spack-packages#6551](https://github.com/spack/spack-packages/pull/6551) (5.4.0), merged 2026-09-21; [spack-packages#6838](https://github.com/spack/spack-packages/pull/6838) (5.4.1) |
 | `netcdf-c` | version 4.10.1; `MPI_Comm_f2c`/`MPI_Info_f2c` detection with MPICH-based MPIs | [spack-packages#6569](https://github.com/spack/spack-packages/pull/6569) |
 | `netcdf-fortran` | version 4.6.3 | [spack-packages#6568](https://github.com/spack/spack-packages/pull/6568) (adds 4.6.3 and 4.6.4), merged 2026-09-21; drop with the first `builtin` release after v2026.06.0 |
 | `parallel-netcdf` | version 1.15.0; no `-fvisibility=hidden` for Fortran, which breaks the `ifx` build | [spack-packages#6570](https://github.com/spack/spack-packages/pull/6570) |
+| `parmetis` | `pic` variant, as for `metis` | not yet submitted |
 | `tempestextremes` | versions 2.4, 2.4.1, 2.4.2 | [spack-packages#6567](https://github.com/spack/spack-packages/pull/6567), merged 2026-09-21; drop with the first `builtin` release after v2026.06.0 |
 | `tempestremap` | grid-element tolerance patch for high-resolution meshes in mbtempest; missing `c` build dependency | patch E3SM-specific; `c` dependency already on `develop` |
 
