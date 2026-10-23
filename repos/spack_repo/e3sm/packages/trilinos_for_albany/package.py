@@ -314,6 +314,10 @@ class TrilinosForAlbany(CMakePackage):
     conflicts("~uvm", when="@11.14.1:12.18.1 +cuda")
     # ###################### Dependencies ##########################
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+    depends_on("fortran", type="build", when="+fortran")
+
     # Everything should be compiled position independent (-fpic)
     # Starting Feb. 2023, Trilinos requires cmake 3.23 or higher.
     depends_on("cmake@3.23:")
