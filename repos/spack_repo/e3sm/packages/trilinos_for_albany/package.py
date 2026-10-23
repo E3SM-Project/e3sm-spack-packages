@@ -314,6 +314,10 @@ class TrilinosForAlbany(CMakePackage):
     conflicts("~uvm", when="@11.14.1:12.18.1 +cuda")
     # ###################### Dependencies ##########################
 
+    depends_on("c", type="build")
+    depends_on("cxx", type="build")
+    depends_on("fortran", type="build", when="+fortran")
+
     # Everything should be compiled position independent (-fpic)
     # Starting Feb. 2023, Trilinos requires cmake 3.23 or higher.
     depends_on("cmake@3.23:")
@@ -387,12 +391,12 @@ class TrilinosForAlbany(CMakePackage):
     def setup_build_environment(self, env):
         spec = self.spec
         if "+cuda" in spec and "+wrapper" in spec:
-            if "+mpi" in spec:
-                env.set("OMPI_CXX", spec["kokkos-nvcc-wrapper"].kokkos_cxx)
-                env.set("MPICH_CXX", spec["kokkos-nvcc-wrapper"].kokkos_cxx)
-                env.set("MPICXX_CXX", spec["kokkos-nvcc-wrapper"].kokkos_cxx)
-            else:
-                env.set("CXX", spec["kokkos-nvcc-wrapper"].kokkos_cxx)
+            # always built with MPI (there is no mpi variant), so point the
+            # MPI compiler wrappers at nvcc_wrapper
+            kokkos_cxx = self["kokkos-nvcc-wrapper"].kokkos_cxx
+            env.set("OMPI_CXX", kokkos_cxx)
+            env.set("MPICH_CXX", kokkos_cxx)
+            env.set("MPICXX_CXX", kokkos_cxx)
 
     def cmake_args(self):
         spec = self.spec
