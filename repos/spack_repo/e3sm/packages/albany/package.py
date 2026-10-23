@@ -26,6 +26,7 @@ class Albany(CMakePackage):
     version("compass-2023-08-03", tag="compass-2023-08-03")
     version("develop", branch="master")
 
+    depends_on("c", type="build")
     depends_on("cxx", type="build")  # generated
 
     variant("debug", default=False, description="Enable DEBUGGING")
