@@ -28,6 +28,8 @@ class Albany(CMakePackage):
 
     depends_on("c", type="build")
     depends_on("cxx", type="build")  # generated
+    # the MPAS interface links a dummy C, C++ and Fortran project
+    depends_on("fortran", type="build", when="+mpas")
 
     variant("debug", default=False, description="Enable DEBUGGING")
     variant("fpe", default=False, description="Enable CHECK_FPE")
