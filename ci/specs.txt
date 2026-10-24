@@ -21,5 +21,5 @@ metis@5.1.0+int64+real64~shared+pic
 parmetis@4.0.3+int64~shared+pic
 e3sm-scorpio@2.0.3+mpi~timing~internal-timing~tools+malloc
 netcdf-c@4.10.1+mpi~parallel-netcdf
-netcdf-fortran@4.6.3
+netcdf-fortran@4.6.4
 parallel-netcdf@1.15.0+cxx+fortran
