@@ -26,7 +26,7 @@ E3SM delta. Each is deleted here once the pinned `builtin` release provides it.
 |---------|----------------|----------|
 | `albany` | E3SM-only: Albany land-ice model with compass tags and variants | not upstream |
 | `trilinos-for-albany` | E3SM-only: Trilinos configured for Albany | not upstream |
-| `e3sm-scorpio` | versions 1.8.2–2.0.3; lowercase Fortran modules with `cce` | [spack-packages#6571](https://github.com/spack/spack-packages/pull/6571) |
+| `e3sm-scorpio` | versions 1.8.2–2.0.4; lowercase Fortran modules with `cce` | [spack-packages#6571](https://github.com/spack/spack-packages/pull/6571) |
 | `esmf` | drops the run-time `python`/`py-pyyaml` dependencies (ESMX), which would put a Spack python in the view; NetCDF `split` mode on Perlmutter, Chicoma and Frontier; `libstdc++` link path with oneAPI | E3SM-specific |
 | `metis` | `pic` variant, so the static library can be linked into Trilinos's shared libraries in Polaris's Albany environments | not yet submitted |
 | `moab` | constrains `eigen` to 3.x; MOAB 5.6.0 does not build against Eigen 5 (C++14) | [spack-packages#6566](https://github.com/spack/spack-packages/pull/6566), merged 2026-09-21; drop with the first `builtin` release after v2026.06.0 |
